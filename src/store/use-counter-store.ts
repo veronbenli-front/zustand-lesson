@@ -1,5 +1,6 @@
 import { create, type StateCreator } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware'
 
 
 interface IActions {
@@ -14,23 +15,27 @@ interface IInitialState {
 
 interface ICounterState extends IInitialState, IActions { }
 
-const intialState: IInitialState = {
+const initialState: IInitialState = {
     count: 0,
 }
 
-const counterStore: StateCreator<ICounterState> = (set) => ({
-    ...intialState,
-    increment: () => set((state) => ({ count: state.count + 1 })),
-    decrement: () => set((state) => ({ count: state.count - 1 })),
+const counterStore: StateCreator<ICounterState,
+    [['zustand/devtools', unknown], ['zustand/persist', unknown]]
+> = (set) => ({
+    ...initialState,
+    increment: () => set((state) => ({ count: state.count + 1 }), false, 'increment'),
+    decrement: () => set((state) => ({ count: state.count - 1 }), false, 'decrement'),
 })
 
 const useCounterStore = create<ICounterState>()(
-    persist(
-        counterStore,
-        {
-            name: 'counter-storage',
-            storage: createJSONStorage(() => localStorage),
-        }
+    devtools(
+        persist(
+            counterStore,
+            {
+                name: 'counter-storage',
+                storage: createJSONStorage(() => localStorage),
+            }
+        )
     )
 );
 
