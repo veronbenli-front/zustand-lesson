@@ -1,14 +1,14 @@
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
+import meLogo from "../assets/skul.svg";
+import zustandLogo from "../assets/zustand.svg";
 
 const Icons = () => {
   return (
     <div>
-      <a href="https://vite.dev" target="_blank">
-        <img src={viteLogo} className="logo" alt="Vite logo" />
+      <a href="https://github.com/veronbenli-front" target="_blank">
+        <img src={meLogo} className="logo" alt="Vite logo" />
       </a>
-      <a href="https://react.dev" target="_blank">
-        <img src={reactLogo} className="logo react" alt="React logo" />
+      <a href="https://zustand-demo.pmnd.rs/" target="_blank">
+        <img src={zustandLogo} className="logo react" alt="React logo" />
       </a>
     </div>
   );
